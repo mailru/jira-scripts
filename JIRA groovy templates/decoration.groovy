@@ -23,7 +23,7 @@ class IssueAdvanceDecorator{
     @Delegate final Issue issue
    
     GroovyIssueDecorator(Issue issue) {
-        this.issue = issue;
+        this.issue = issue1;
     }
    
     String getSummary(){

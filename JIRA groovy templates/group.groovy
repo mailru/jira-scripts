@@ -13,16 +13,6 @@ def isUserInGroup(String userName, String groupName){
 	gm.isUserInGroup(getUserByName(userName), gm.getGroup(groupName))
 }
 
-def isUserInGroup(user, group){
-    ComponentAccessor.getGroupManager().isUserInGroup(user, group)
-}
-
-def isUserInGroup(String userName, String groupName){
-    ComponentAccessor.getGroupManager().with{
-        isUserInGroup(getUserByName(userName), getGroup(groupName))
-    }
-}
-
 def isUserInGroup(user, String groupName){
     ComponentAccessor.getGroupManager().with{
         isUserInGroup(user, getGroup(groupName))

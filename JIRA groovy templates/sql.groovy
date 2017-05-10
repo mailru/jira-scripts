@@ -1,15 +1,15 @@
-import groovy.sql.Sql;
-import groovy.sql.GroovyRowResult;
-import java.sql.SQLException;
-import java.sql.Connection;
-import org.ofbiz.core.entity.ConnectionFactory;
-import org.ofbiz.core.entity.DelegatorInterface;
-import com.atlassian.jira.ofbiz.OfBizDelegator;
-import com.atlassian.jira.component.ComponentAccessor;
+import com.atlassian.jira.component.ComponentAccessor
+import com.atlassian.jira.ofbiz.OfBizDelegator
+import groovy.sql.GroovyRowResult
+import groovy.sql.Sql
+import org.ofbiz.core.entity.ConnectionFactory
+import org.ofbiz.core.entity.DelegatorInterface
+
+import java.sql.Connection
 
 select("select ...")
 //update("delete ...")
-def select(query){
+def select(String query){
     OfBizDelegator delegator = ComponentAccessor.getOfBizDelegator();
     DelegatorInterface delegatorInterface = delegator.getDelegatorInterface();
     String helperName = delegatorInterface.getGroupHelperName("default");
@@ -28,7 +28,7 @@ def select(query){
 }
 
 
-def update(query){
+def update(String query){
     OfBizDelegator delegator = ComponentAccessor.getOfBizDelegator();
     DelegatorInterface delegatorInterface = delegator.getDelegatorInterface();
     String helperName = delegatorInterface.getGroupHelperName("default");

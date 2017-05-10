@@ -24,7 +24,7 @@
 Вызов перехода у issue. В файлe transition.groovy содержится метод doTransition(issue, actionId, user). 
 В него передается issue у которой хотите вызвать переход, id перехода, user - пользователь от имени которого совершается переход
 ```groovy
-	def doTransition(issue, actionId, user){
+	def doTransition(issue, int actionId, user){
 	    def issueService = ComponentAccessor.getIssueService()
 	    def issueInputParameters = issueService.newIssueInputParameters();
 	    def transitionValidationResult = issueService.validateTransition(user, issue.id, actionId, issueInputParameters);
@@ -42,7 +42,7 @@
 ```groovy
 	select("select ...")
 
-	def select(query){
+	def select(String query){
 	    OfBizDelegator delegator = ComponentAccessor.getOfBizDelegator();
 	    DelegatorInterface delegatorInterface = delegator.getDelegatorInterface();
 	    String helperName = delegatorInterface.getGroupHelperName("default");

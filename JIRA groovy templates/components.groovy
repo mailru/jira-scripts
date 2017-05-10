@@ -36,7 +36,7 @@ def hasComponent(issue, Long componentId){
 	issue.components.find{it.id == componentId} != null
 }
 
-def hasComponentFromList(issue, List componentNames){
+def hasComponentFromList(issue, List<String> componentNames){
 	issue.components.any{it.name in componentNames}
 }
 
