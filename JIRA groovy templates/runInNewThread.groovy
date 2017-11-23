@@ -5,30 +5,30 @@ def task = {
     updateAssignee(getIssue('KEY-1'), getUserByName('assigneeLogin'), getCurrentUser())
 }
 
-//convert to a pull
-runMethodInNewThread(method)
+//todo convert to a pull
+runMethodInNewThread(task)
 
-def runMethodInNewThread(method){
-    new Thread().start{
+def runMethodInNewThread(method) {
+    new Thread().start {
         method()
     }
 }
 
-def getIssue(key){
+def getIssue(key) {
     ComponentAccessor.issueManager.getIssueObject(key)
 }
 
 
-def updateAssignee(issue, assignee, user){
+def updateAssignee(issue, assignee, user) {
     issue.assignee = assignee
     def im = ComponentAccessor.issueManager
     im.updateIssue(user, issue, EventDispatchOption.ISSUE_UPDATED, true)
 }
 
-def getCurrentUser(){
+def getCurrentUser() {
     ComponentAccessor.jiraAuthenticationContext?.user
 }
 
-def getUserByName(userName){
+def getUserByName(userName) {
     ComponentAccessor.userManager.getUserByName(userName)
 }

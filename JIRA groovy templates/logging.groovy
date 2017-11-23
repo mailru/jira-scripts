@@ -1,15 +1,15 @@
-methodX = {throwException()}
+methodX = { throwException() }
 logging(methodX)
 
-def throwException(){
+def throwException() {
     throw new Exception('ERROR')
 }
 
 
-def logging(method){
-    try{
+def logging(method) {
+    try {
         method()
-    } catch(any) {
+    } catch (any) {
         log.error(e)
     }
 }

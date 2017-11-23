@@ -1,3 +1,3 @@
 def xml = ""
-def list = new XmlSlurper().parseText(xml) 
+def list = new XmlSlurper().parseText(xml)
 list.getAt('Row').text()

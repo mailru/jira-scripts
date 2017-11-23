@@ -8,16 +8,16 @@ import org.ofbiz.core.entity.DelegatorInterface
 import java.sql.Connection
 
 select("select ...")
-//update("delete ...")
-def select(String query){
+//update("delete/insert ...")
+def select(String query) {
     OfBizDelegator delegator = ComponentAccessor.getOfBizDelegator();
     DelegatorInterface delegatorInterface = delegator.getDelegatorInterface();
     String helperName = delegatorInterface.getGroupHelperName("default");
     Connection connection = ConnectionFactory.getConnection(helperName);
     Sql sql = new Sql(connection);
-    
+
     List<GroovyRowResult> resultRows = []
-    try{
+    try {
         resultRows.addAll(sql.rows(query));
     } finally {
         //sql.close()
@@ -28,14 +28,14 @@ def select(String query){
 }
 
 
-def update(String query){
+def update(String query) {
     OfBizDelegator delegator = ComponentAccessor.getOfBizDelegator();
     DelegatorInterface delegatorInterface = delegator.getDelegatorInterface();
     String helperName = delegatorInterface.getGroupHelperName("default");
     Connection connection = ConnectionFactory.getConnection(helperName);
     Sql sql = new Sql(connection);
     def i
-    try{
+    try {
         i = sql.executeUpdate(query);
     } finally {
         //sql.close()
