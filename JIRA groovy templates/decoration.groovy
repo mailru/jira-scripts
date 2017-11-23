@@ -24,7 +24,7 @@ class IssueAdvanceDecorator {
     final Issue issue
 
     IssueAdvanceDecorator(Issue issue) {
-        this.issue = issue1;
+        this.issue = issue;
     }
 
     String getSummary() {
