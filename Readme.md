@@ -1,44 +1,46 @@
-# Atlassian JIRA SriptRunner groovy templates/examples
-Шаблон быстрого написания groovy скриптов для плагина [ScriptRunner for JIRA](https://marketplace.atlassian.com/plugins/com.onresolve.jira.groovy.groovyrunner/overview).
-В шаблоне используюется обычный java-api в удобных для применения обертках.
-Вам остается только скопировать код и применить его в нужном порядке.
+# Atlassian JIRA Groovy Amigo templates / examples
+Template of quick writing groovy scripts for the plugin [Groovy Amigo] (https://marketplace.atlassian.com/1218755).
+The template uses the usual java-api in easy-to-use wrappers.
+You can just to copy the code and apply it in the right order.
 
-[Документация по языку groovy](http://groovy-lang.org/documentation.html)
+[Groovy language docs is here] (http://groovy-lang.org/documentation.html)
 
-Дополнения и пожелания приветствуются. 
+Additions and wishes are welcome.
 
-#### Пример 1
-Получение issue
-```groovy
-	ComponentAccessor.issueManager.getIssueObject(key)
-```
 
-В шаблоне представлено методом, который досточно скопировать вместе с импортом.
-```groovy
-	def getIssue(String key){
-		ComponentAccessor.issueManager.getIssueObject(key)
+#### Example 1
+Receiving issue
+`` groovy
+	ComponentAccessor.issueManager.getIssueObject (key)
+`` `
+
+The template is represented by a method that is copied with the import.
+`` groovy
+	def getIssue (String key) {
+	ComponentAccessor.issueManager.getIssueObject (key)
 	}
-```
+`` `
 
-#### Пример 2
-Вызов перехода у issue. В файлe transition.groovy содержится метод doTransition(issue, actionId, user). 
-В него передается issue у которой хотите вызвать переход, id перехода, user - пользователь от имени которого совершается переход
-```groovy
-	def doTransition(issue, int actionId, user){
-	    def issueService = ComponentAccessor.getIssueService()
-	    def issueInputParameters = issueService.newIssueInputParameters();
-	    def transitionValidationResult = issueService.validateTransition(user, issue.id, actionId, issueInputParameters);
-	    if (transitionValidationResult.isValid()){
-	       issueService.transition(user, transitionValidationResult);
-	        return true
-	    } else {
-	        return false
-	    }
+#### Example 2
+Calling a transition at issue. The transition.groovy file contains the doTransition (issue, actionId, user) method.
+It passes the issue with which you want to call the transition, the transition id, user - the user on whose behalf the transition is made
+`` groovy
+	def doTransition (issue, int actionId, user) {
+	def issueService = ComponentAccessor.getIssueService ()
+	def issueInputParameters = issueService.newIssueInputParameters ();
+	def transitionValidationResult = issueService.validateTransition (user, issue.id, actionId, issueInputParameters);
+		if (transitionValidationResult.isValid ()) {
+		issueService.transition (user, transitionValidationResult);
+		return true
+		} else {
+		return false
+		}
 	}
-```
+`` `
 
-#### Пример 3
-Для выполнения запроса в базу данных досточно вызвать метод select("select * from ...") из файла sql.groovy
+#### Example 3
+To execute a query in the database, call the select ("select * from ...") method from the sql.groovy file
+
 ```groovy
 	select("select ...")
 
