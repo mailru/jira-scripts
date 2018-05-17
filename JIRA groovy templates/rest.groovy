@@ -149,3 +149,9 @@ def class Sender {
         }
     }
 }
+
+
+def get(String url) {
+    def jsonSlurper = new JsonSlurper()
+    return jsonSlurper.parseText(url.toURL().text)
+}

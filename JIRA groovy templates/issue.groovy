@@ -6,12 +6,12 @@ def getIssue(String key) {
     ComponentAccessor.issueManager.getIssueObject(key)
 }
 
-def getIssue(Long id) {
-    ComponentAccessor.issueManager.getIssueObject(id)
-}
-
 def update(user, issue) {
     ComponentAccessor.issueManager.updateIssue(user, issue, EventDispatchOption.ISSUE_UPDATED, false)
+}
+
+def getIssue(Long id) {
+    ComponentAccessor.issueManager.getIssueObject(id)
 }
 
 def createIssue(user) {

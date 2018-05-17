@@ -24,7 +24,6 @@ def enableOption(option) {
     //todo
 }
 
-//option advance
 def createNewOption(customField, Long schemesId, String value) {
     def newOption = null;
     if (customField != null) {

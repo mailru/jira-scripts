@@ -1,10 +1,9 @@
-enableCache = { -> false }
-
 import com.atlassian.jira.component.ComponentAccessor
 import com.atlassian.jira.event.type.EventDispatchOption
 import com.atlassian.jira.issue.ModifiedValue
 import com.atlassian.jira.issue.util.DefaultIssueChangeHolder
 
+//without a historical record
 def updateCustomFieldValue(issue, Long customFieldId, newValue) {
     def customField = ComponentAccessor.customFieldManager.getCustomFieldObject(customFieldId)
     customField.updateValue(null, issue, new ModifiedValue(customField.getValue(issue), newValue), new DefaultIssueChangeHolder());
@@ -22,5 +21,6 @@ def getCustomFieldObject(Long fieldId) {
 }
 
 def getCustomFieldValue(issue, Long fieldId) {
-    ComponentAccessor.customFieldManager.getCustomFieldObject(fieldId)?.getValue(issue)
+    issue.getCustomFieldValue(ComponentAccessor.customFieldManager.getCustomFieldObject(fieldId))
+    //ComponentAccessor.customFieldManager.getCustomFieldObject(fieldId)?.getValue(issue)
 }

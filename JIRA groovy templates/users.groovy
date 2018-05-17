@@ -35,7 +35,7 @@ def getActiveUsersHaveNotUsedLogin(Long days) {
 }
 
 def findUserByEmail(String email) {
-    UserUtils.getUserByEmail(assignees.output.cfo)
+    UserUtils.getUserByEmail(email)
 }
 
 def findUsersByName(String partOfName) {

@@ -1,4 +1,4 @@
-import com.atlassian.jira.component.ComponentAccessor;
+import com.atlassian.jira.component.ComponentAccessor
 import com.atlassian.jira.util.AttachmentUtils
 
 def getAttachments(issue) {

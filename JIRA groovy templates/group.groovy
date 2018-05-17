@@ -1,16 +1,23 @@
 import com.atlassian.jira.component.ComponentAccessor
 
+def isUserInGroup(user, String groupName) {
+    ComponentAccessor.getGroupManager().with {
+        isUserInGroup(user, getGroup(groupName))
+    }
+}
+
 def getGroup(String groupName) {
     ComponentAccessor.getGroupManager().getGroup(groupName)
 }
 
-def isUserInGroup(user, group) {
-    ComponentAccessor.getGroupManager().isUserInGroup(user, group)
+def getUsersInGroup(group) {
+    ComponentAccessor.getGroupManager().getUsersInGroup(group)
 }
 
-def isUserInGroup(String userName, String groupName) {
-    def gm = ComponentAccessor.getGroupManager()
-    gm.isUserInGroup(getUserByName(userName), gm.getGroup(groupName))
+def getUsersInGroup(String groupName) {
+    ComponentAccessor.getGroupManager().with {
+        getUsersInGroup(getGroup(groupName))
+    }
 }
 
 def isUserInGroup(user, group) {
@@ -20,12 +27,6 @@ def isUserInGroup(user, group) {
 def isUserInGroup(String userName, String groupName) {
     ComponentAccessor.getGroupManager().with {
         isUserInGroup(getUserByName(userName), getGroup(groupName))
-    }
-}
-
-def isUserInGroup(user, String groupName) {
-    ComponentAccessor.getGroupManager().with {
-        isUserInGroup(user, getGroup(groupName))
     }
 }
 

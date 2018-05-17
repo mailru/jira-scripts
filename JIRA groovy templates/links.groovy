@@ -9,12 +9,38 @@ def getOutwardLinks(issue) {
     ComponentAccessor.getIssueLinkManager().getOutwardLinks(issue.id);
 }
 
+def getAllLinkedIssues(issue) {
+    def allLinkedIssue = [] as Set
+    allLinkedIssue.addAll(getInwardIssues(issue))
+    allLinkedIssue.addAll(getOutwardIssues(issue))
+    return allLinkedIssue
+}
+
 def getInwardIssues(issue) {
     ComponentAccessor.getIssueLinkManager().getInwardLinks(issue.id)*.getSourceObject()
 }
 
 def getOutwardIssues(issue) {
     ComponentAccessor.getIssueLinkManager().getOutwardLinks(issue.id)*.getDestinationObject()
+}
+
+def getAllLinkedIssues(issue, long linkTypeId) {
+    def allLinkedIssue = [] as Set
+    allLinkedIssue.addAll(getInwardIssues(issue, linkTypeId))
+    allLinkedIssue.addAll(getOutwardIssues(issue, linkTypeId))
+    return allLinkedIssue
+}
+
+def getInwardIssues(issue, long linkTypeId) {
+    ComponentAccessor.getIssueLinkManager().getInwardLinks(issue.id).findAll {
+        it.getLinkTypeId() == linkTypeId
+    }*.getSourceObject()
+}
+
+def getOutwardIssues(issue, long linkTypeId) {
+    ComponentAccessor.getIssueLinkManager().getOutwardLinks(issue.id).findAll {
+        it.getLinkTypeId() == linkTypeId
+    }*.getDestinationObject()
 }
 
 def createLink(fromIssue, toIssue, Long issueLinkTypeId, Long sequence, user) {

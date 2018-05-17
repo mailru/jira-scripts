@@ -10,3 +10,13 @@ def deleteCommentsForIssue(issue) {
     def commentManager = ComponentAccessor.getCommentManager();
     commentManager.deleteCommentsForIssue(issue)
 }
+
+def Collection<String> getAllCommentsBody(issue) {
+    def commentManager = ComponentAccessor.getCommentManager();
+    commentManager.getComments(issue)*.getBody()
+}
+
+def getAllComments(issue) {
+    def commentManager = ComponentAccessor.getCommentManager();
+    commentManager.getComments(issue)
+}
