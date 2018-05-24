@@ -35,7 +35,8 @@ class FinderGroovyAmigo {
             whereScriptBodyLikeText = " LOWER(SCRIPT_BODY) like  LOWER('%${findText}%')"
         }
         def tableNameScript = "${pluginTableInfo.tablePrefix}_SCRIPT"
-        def scripts = new DBService().select("select DIRECTORY_ID, NAME from ${tableNameScript} Where DELETED = false and ${whereScriptBodyLikeText} ")
+        def tableDirectory = "${pluginTableInfo.tablePrefix}_SCRIPT_DIRECTORY"
+        def scripts = new DBService().select("select ${tableDirectory}.NAME as DIRECTORY_NAME, ${tableNameScript}.NAME from ${tableNameScript} join ${tableDirectory} on ${tableDirectory}.ID = ${tableNameScript}.DIRECTORY_ID where ${tableNameScript}.DELETED = false and ${whereScriptBodyLikeText}")
 
         def tableNameRestScript = "${pluginTableInfo.tablePrefix}_REST_SCRIPT"
         def restScripts = new DBService().select("select NAME from ${tableNameRestScript} Where DELETED = false and ${whereScriptBodyLikeText} ")
