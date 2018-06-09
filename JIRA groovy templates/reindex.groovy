@@ -1,5 +1,7 @@
 import com.atlassian.jira.component.ComponentAccessor
-import com.atlassian.jira.issue.index.IssueIndexManager
+import com.atlassian.jira.issue.index.IssueIndexingService
 
-def issueIndexManager = ComponentAccessor.getComponent(IssueIndexManager)
-issueIndexManager.reIndexIssueObjects(issues)
+def reIndex(issue){
+  def issueIndexingService = ComponentAccessor.getComponent(IssueIndexingService)
+  issueIndexingService.reIndex(issue)
+}
