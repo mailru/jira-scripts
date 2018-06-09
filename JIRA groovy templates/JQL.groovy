@@ -11,7 +11,7 @@ def getIssuesByJQL(String jql) {
     def jqlQueryParser = ComponentAccessor.getComponent(JqlQueryParser)
     def searchProvider = ComponentAccessor.getComponent(SearchProvider)
     def issueManager = ComponentAccessor.getIssueManager()
-    def user = getCurrentUser()
+    def user = ComponentAccessor.getJiraAuthenticationContext().getLoggedInUser()
 
     def query = jqlQueryParser.parseQuery(jql)
     def result = searchProvider.search(query, user, PagerFilter.getUnlimitedFilter())

@@ -11,8 +11,8 @@ def getPreviousValue(customField, issue) {
 
 def getPreviousStatus(issue) {
     def id = ComponentAccessor.changeHistoryManager.getChangeItemsForField(issue, "status").max { it.created }.from
-    def sm = ComponentAccessor.getComponentOfType(StatusManager)
-    sm.getStatus(id)
+    def statusManager = ComponentAccessor.getComponentOfType(StatusManager)
+    statusManager.getStatus(id)
 }
 
 def Long getTimeInStatus(String STATUS_ID, issue) {

@@ -45,8 +45,8 @@ def addUserInGroup(user, group) {
 }
 
 def addUserInGroup(String userName, String groupName) {
-    def gm = ComponentAccessor.getGroupManager()
-    gm.addUserToGroup(getUserByName(userName), gm.getGroup(groupName))
+    def groupManager = ComponentAccessor.getGroupManager()
+    groupManager.addUserToGroup(getUserByName(userName), groupManager.getGroup(groupName))
 }
 
 def getAllGroups() {

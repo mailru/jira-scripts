@@ -27,19 +27,18 @@ def select(String query) {
     return resultRows
 }
 
-
 def update(String query) {
     OfBizDelegator delegator = ComponentAccessor.getOfBizDelegator();
     DelegatorInterface delegatorInterface = delegator.getDelegatorInterface();
     String helperName = delegatorInterface.getGroupHelperName("default");
     Connection connection = ConnectionFactory.getConnection(helperName);
     Sql sql = new Sql(connection);
-    def i
+    def numberOfUpdated
     try {
-        i = sql.executeUpdate(query);
+        numberOfUpdated = sql.executeUpdate(query);
     } finally {
         //sql.close()
         connection.close()
     }
-    return i
+    return numberOfUpdated
 }

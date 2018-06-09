@@ -1,6 +1,6 @@
+import com.atlassian.jira.component.ComponentAccessor
 import com.atlassian.crowd.embedded.impl.ImmutableUser
 import com.atlassian.jira.bc.user.UserService
-import com.atlassian.jira.component.ComponentAccessor
 import com.atlassian.jira.security.login.LoginManager
 import com.atlassian.jira.user.ApplicationUsers
 import com.atlassian.jira.user.UserUtils
@@ -21,7 +21,7 @@ def getAllUsers() {
 }
 
 def getAllUsersHaveNotUsedLogin(Long days) {
-    def lm = ComponentAccessor.getComponentOfType(LoginManager.class)
+    def loginManager = ComponentAccessor.getComponentOfType(LoginManager.class)
     def users = getAllUsers()
     def daysInMillis = days * 24 * 60 * 60 * 1000
     def nowMillis = new Date().time

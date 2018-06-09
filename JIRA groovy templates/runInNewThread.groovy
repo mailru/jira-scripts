@@ -21,8 +21,8 @@ def getIssue(key) {
 
 def updateAssignee(issue, assignee, user) {
     issue.assignee = assignee
-    def im = ComponentAccessor.issueManager
-    im.updateIssue(user, issue, EventDispatchOption.ISSUE_UPDATED, true)
+    def issueManager = ComponentAccessor.issueManager
+    issueManager.updateIssue(user, issue, EventDispatchOption.ISSUE_UPDATED, true)
 }
 
 def getCurrentUser() {

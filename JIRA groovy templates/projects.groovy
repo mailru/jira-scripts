@@ -9,5 +9,5 @@ def getProjectByKey(String key) {
 }
 
 def getProjectById(Long id) {
-    ComponentAccessor.projectManager.getProjectObj() id
+    ComponentAccessor.projectManager.getProjectObj(id)
 }
