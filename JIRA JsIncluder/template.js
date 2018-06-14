@@ -88,3 +88,21 @@ setInterval(function () {
 
 setTimeout(function () {
 }, 500)
+
+
+function addLabel(name){
+    var $container = $('#labels-multi-select ul.items');
+    var e = '<li class="item-row" role="option" aria-describedby="label-0" id="item-row-1"><button type="button" tabindex="-1" class="value-item"><span><span class="value-text">' + name + '</span></span></button><em class="item-delete" aria-label=" " original-title=""></em></li>';
+    $container.append(e);
+
+    var options = 'select#labels optgroup[label="user inputted option"]';
+    if( $(options).length == 0 ) $('select#labels').append('<optgroup label="user inputted option"></optgroup>');
+    $(options).append('<option value="' + name + '" title="' + name + '" selected="selected">' + name + '</option>');
+
+    $container.find('li.item-row .item-delete').click(function(){
+       if( $(options).length > 0 ){ 
+       	$(options).find('option[value="' + $(this).parent().text() + '"]').remove();
+       }
+       $(this).parent().remove();
+    });
+}
