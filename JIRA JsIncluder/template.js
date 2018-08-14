@@ -1,3 +1,5 @@
+JIRA.Issue.getIssueKey()
+
 JS_INCLUDER.params
 JS_INCLUDER.params.context
 JS_INCLUDER.params.issueStatusId
@@ -100,7 +102,7 @@ function addLabel(name){
     $(options).append('<option value="' + name + '" title="' + name + '" selected="selected">' + name + '</option>');
 
     $container.find('li.item-row .item-delete').click(function(){
-       if( $(options).length > 0 ){ 
+       if( $(options).length > 0 ){
        	$(options).find('option[value="' + $(this).parent().text() + '"]').remove();
        }
        $(this).parent().remove();

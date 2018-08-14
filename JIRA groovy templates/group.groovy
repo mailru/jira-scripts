@@ -53,6 +53,14 @@ def getAllGroups() {
     ComponentAccessor.getGroupManager().getAllGroups()
 }
 
-def deleteUserFromGroup(user, group) {
-    //todo
+def getGroupsForUser(user) {
+    ComponentAccessor.getUserUtil().getGroupsForUser(user)
+}
+
+def deleteUserFromGroups(user, groups) {
+    ComponentAccessor.getUserUtil().removeUserFromGroups(groups, user)
+}
+
+def deleteUserFromAllGroups(user) {
+    deleteUserFromGroups(user, getGroupsForUser(user))
 }

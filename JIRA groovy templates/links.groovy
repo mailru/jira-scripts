@@ -51,3 +51,12 @@ def getRemoteIssueLinks(issue) {
     def rilm = ComponentAccessor.getComponentOfType(RemoteIssueLinkManager);
     rilm.getRemoteIssueLinksForIssue(issue);
 }
+
+def removeIssueLink(long issueLinkId){
+  ComponentAccessor.getIssueLinkManager().with{
+    	def issueLink = getIssueLink(issueLinkId)
+      if(issueLink){
+        removeIssueLink(issueLink, currentUser)
+      }
+  }
+}
