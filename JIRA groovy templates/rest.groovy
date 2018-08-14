@@ -28,6 +28,7 @@ def getRemoteIssue(String baseUrl,
     connection.addRequestProperty('Authorization', 'Basic ' + authString)
     connection.addRequestProperty('Content-Type', 'application/json')
     connection.setRequestMethod('GET')
+    connection.setReadTimeout(30000)
     try {
         connection.connect()
         def line = new BufferedReader(new InputStreamReader(connection.getInputStream())).readLine()
@@ -55,7 +56,7 @@ def put(String url, String content, String userName, String password) {
     def connection = url.toURL().openConnection()
     connection.addRequestProperty("Authorization", "Basic ${authString}")
     connection.addRequestProperty("Content-Type", "application/json")
-
+    connection.setReadTimeout(30000)
     connection.setRequestMethod("PUT")
     connection.doOutput = true
     connection.outputStream.withWriter {
@@ -74,6 +75,8 @@ def put(String url, String content, String userName, String password) {
         } catch (Exception ignored) {
             //throw e
         }
+    } finally {
+        connection.disconnect();
     }
 }
 
@@ -82,7 +85,7 @@ def get(String url, String userName, String password) {
     def connection = url.toURL().openConnection()
     connection.addRequestProperty("Authorization", "Basic ${authString}")
     connection.addRequestProperty("Content-Type", "application/json")
-
+    connection.setReadTimeout(30000)
     connection.setRequestMethod("GET")
 
     try {
@@ -125,6 +128,7 @@ def class Sender {
         }""".toURL().openConnection(Proxy.NO_PROXY)
 
         try {
+            connection.setReadTimeout(30000)
             connection.setDoInput(true);
             connection.setDoOutput(true);
             connection.setAllowUserInteraction(true);

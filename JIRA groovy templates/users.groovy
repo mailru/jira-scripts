@@ -26,7 +26,7 @@ def getAllUsersHaveNotUsedLogin(Long days) {
     def daysInMillis = days * 24 * 60 * 60 * 1000
     def nowMillis = new Date().time
     users.findAll { user ->
-        nowMillis - daysInMillis >= lm.getLoginInfo(user.name).lastLoginTime
+        nowMillis - daysInMillis >= loginManager.getLoginInfo(user.name).lastLoginTime
     }
 }
 
