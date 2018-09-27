@@ -1,4 +1,4 @@
-# Atlassian JIRA Groovy Amigo templates / examples
+# Atlassian JIRA MyGroovy templates / examples
 Template of quick writing groovy scripts for the plugin [Groovy Amigo] (https://marketplace.atlassian.com/1218755).
 The template uses the usual java-api in easy-to-use wrappers.
 You can just to copy the code and apply it in the right order.
