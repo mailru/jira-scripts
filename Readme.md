@@ -4,6 +4,8 @@ The template uses the usual java-api in easy-to-use wrappers.
 You can just to copy the code and apply it in the right order.
 
 [Groovy language docs is here] (http://groovy-lang.org/documentation.html)
+[MyGroovy source code] (https://github.com/atlascommunity/jira-plugins-groovy)
+[MyGroovy documentation] (https://github.com/atlascommunity/jira-plugins-groovy/wiki)
 
 Additions and wishes are welcome.
 
