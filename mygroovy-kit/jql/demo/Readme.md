@@ -1,4 +1,4 @@
-This is demo jql function for MyGroovy plugin.
+This is demo example jql function for MyGroovy plugin.
 
 
 The function finds all tasks upon jql request(as param) and returns them and their sub task.
