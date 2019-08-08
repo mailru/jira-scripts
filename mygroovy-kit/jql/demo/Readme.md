@@ -9,3 +9,5 @@ name: demoJqlFunctionGetTaskAndSubTasks
 code: copy paste code from file this package 'demoJqlFunctionGetTaskAndSubTasks.groovy'
 
 2) Open jql search: issue in demoJqlFunctionGetTaskAndSubTasks("key in (TEST-39)")   
+
+![demo](https://github.com/mailru/jira-scripts/blob/master/mygroovy-kit/jql/demo/demo%20jql.png?raw=true)
