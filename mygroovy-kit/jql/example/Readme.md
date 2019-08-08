@@ -21,4 +21,6 @@ In the code you need to implement one of the classes:
 
 jql: issue in demoJqlFunctionGetTaskAndSubTasks("key in (TEST-39)")
 
+![example](https://github.com/mailru/jira-scripts/blob/master/mygroovy-kit/jql/example/demo%20jql%20in%20search%20string.jpg?raw=true)
+
 ![example](https://github.com/mailru/jira-scripts/blob/master/mygroovy-kit/jql/example/demo%20jql.png?raw=true)
