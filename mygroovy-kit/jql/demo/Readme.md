@@ -6,7 +6,7 @@ add script
 
 name: demoJqlFunctionGetTaskAndSubTasks
 
-code: copy paste code from file this package 'demoJqlFunctionGetTaskAndSubTasks.groovy'
+code: copy paste code from file this package '[demoJqlFunctionGetTaskAndSubTasks.groovy](https://github.com/mailru/jira-scripts/blob/master/mygroovy-kit/jql/demo/demoJqlFunctionGetTaskAndSubTasks.groovy)'
 
 2) Open jql search: issue in demoJqlFunctionGetTaskAndSubTasks("key in (TEST-39)")   
 
