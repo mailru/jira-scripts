@@ -1,4 +1,5 @@
 This is demo jql function for MyGroovy plugin.
+
 The function finds all tasks upon jql request(as param) and returns them and their sub task.
 
 1) Follow the link {baseUrl}/plugins/servlet/my-groovy/jql/
