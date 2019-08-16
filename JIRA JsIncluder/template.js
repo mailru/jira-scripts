@@ -29,6 +29,10 @@ function setFieldText(fieldId, text) {
     AJS.$('#' + fieldId).text(text)
 }
 
+function setVersion(id, name){
+    AJS.$('select[id="fixVersions"]').trigger('selectOption', [{value: id, title: name, label: name }]);
+}
+
 function assignToUserFromField(fieldId) {
     AJS.$.getJSON('/rest/api/2/issue/' + JIRA.Issue.getIssueId()).done(function (data) {
         var userFromField = data.fields[fieldId];
