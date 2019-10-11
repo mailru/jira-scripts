@@ -84,6 +84,9 @@ String from
 @WithParam(displayName = 'Reply-to', type = ParamType.STRING, optional = true)
 String replyTo
 
+@WithParam(displayName = 'Send attachments', type = ParamType.BOOLEAN, optional = true)
+Boolean sendAttachments
+
 def cfValues = new CfValues(issue)
 
 def paramMap = [httpClient       : httpClient,
@@ -146,7 +149,11 @@ String stringCopyTo = copyTo.findAll { it }.toString().replace('[', '').replace(
 
 
 if (stringEmailsTo) {
-    sendEmail(stringEmailsTo, stringCopyTo, subject, body, from, replyTo, emailFormat)
+    if(sendAttachments) {
+        _.sendEmail(stringEmailsTo, stringCopyTo, subject, body, from, replyTo, emailFormat, issue.attachments)
+    } else {
+        _.sendEmail(stringEmailsTo, stringCopyTo, subject, body, from, replyTo, emailFormat)
+    }
 }
 
 def getEmailFromStringWithFields(String stringWithFields) {

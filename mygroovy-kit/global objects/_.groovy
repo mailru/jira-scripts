@@ -43,6 +43,7 @@ import com.atlassian.jira.user.UserUtils
 import com.atlassian.jira.user.util.UserManager
 import com.atlassian.jira.user.util.UserUtil
 import com.atlassian.jira.util.ErrorCollection
+import com.atlassian.jira.util.AttachmentUtils
 import com.atlassian.jira.web.bean.PagerFilter
 import com.atlassian.jira.workflow.TransitionOptions
 import com.atlassian.jira.workflow.WorkflowManager
@@ -50,6 +51,7 @@ import com.atlassian.jira.workflow.WorkflowTransitionUtil
 import com.atlassian.jira.workflow.WorkflowTransitionUtilFactory
 import com.atlassian.mail.Email
 import com.atlassian.mail.queue.SingleMailQueueItem
+import com.atlassian.mail.queue.MailQueue
 import com.atlassian.oauth.Request
 import com.atlassian.query.Query
 import com.opensymphony.workflow.spi.WorkflowEntry
@@ -57,6 +59,8 @@ import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 import org.ofbiz.core.entity.DelegatorInterface
 import org.ofbiz.core.entity.GenericValue
+import javax.mail.*
+import javax.mail.internet.*
 
 class GlobalObject {
 
@@ -64,7 +68,7 @@ class GlobalObject {
     private final WorkflowManager workflowManager;
     private final WatcherManager watcherManager;
     private final CrowdService crowdService;
-    private final UserService userService
+    private final UserService userService;
     private final IssueService issueService;
     private final ProjectRoleManager projectRoleManager;
     private final IssueIndexingService issueIndexingService;
@@ -79,13 +83,14 @@ class GlobalObject {
     private final UserUtil userUtil;
     private final CustomFieldManager customFieldManager;
     private final ProjectComponentManager projectComponentManager;
-    private final CommentManager commentManager
-    private final JqlQueryParser jqlQueryParser
-    private final SearchProvider searchProvider
-    private final AttachmentManager attachmentManager
-    private final DelegatorInterface delegatorInterface
-    private final WorkflowTransitionUtilFactory workflowTransitionUtilFactory
+    private final CommentManager commentManager;
+    private final JqlQueryParser jqlQueryParser;
+    private final SearchProvider searchProvider;
+    private final AttachmentManager attachmentManager;
+    private final DelegatorInterface delegatorInterface;
+    private final WorkflowTransitionUtilFactory workflowTransitionUtilFactory;
     private final SearchService searchService;
+    private final MailQueue mailQueue;
 
 
     GlobalObject(@StandardModule UserManager userManager,
@@ -113,7 +118,8 @@ class GlobalObject {
                  @StandardModule AttachmentManager attachmentManager,
                  @StandardModule DelegatorInterface delegatorInterface,
                  @StandardModule WorkflowTransitionUtilFactory workflowTransitionUtilFactory,
-                 @StandardModule SearchService searchService
+                 @StandardModule SearchService searchService,
+                 @StandardModule MailQueue mailQueue
     ) {
         this.userManager = userManager
         this.workflowManager = workflowManager
@@ -141,6 +147,7 @@ class GlobalObject {
         this.delegatorInterface = delegatorInterface
         this.workflowTransitionUtilFactory = workflowTransitionUtilFactory
         this.searchService = searchService
+        this.mailQueue = mailQueue
     }
 
     String getBaseUrl() {
@@ -450,7 +457,6 @@ class GlobalObject {
         issue.getCustomFieldValue(getCustomFieldObject(fieldId))
     }
 
-    //todo send email eamil with file...
     /** Отправить email
      * @param emailAddr : "test@test.test"
      * @param copy - ящики которые нужно добавить в копию, указываются через запятую.
@@ -473,6 +479,45 @@ class GlobalObject {
         }
         SingleMailQueueItem smqi = new SingleMailQueueItem(email)
         ComponentAccessor.getMailQueue().addItem(smqi)
+    }
+
+    /** Отправить email
+     * @param emailAddr : "test@test.test"
+     * @param copy - ящики которые нужно добавить в копию, указываются через запятую.
+     * @param subject - шаблон для заголовка сообщений.
+     * @param body - тело сообщения.
+     * @param from - адрес, который будет указан как отправитель этого сообщения. По умолчанию адрес JIRA.
+     * @param replyTo - адрес, на который будет отправлен ответ на письмо.
+     * @param emailFormat - "text/html" or "text/plain" or ...
+     * @param attachments - list of attachments
+     * */
+    void sendEmail(String emailAddr, String copy, String subject, String body, String from, String replyTo, String emailFormat, List<Attachment> attachments) {
+        Email email = new Email(emailAddr, copy, '')
+        email.setSubject(subject)
+
+        Multipart multipart = new MimeMultipart("mixed")
+        if (from) {
+            email.setFrom(from)
+        }
+        if (replyTo) {
+            email.setReplyTo(replyTo)
+        }
+
+        MimeBodyPart bodyPart = new MimeBodyPart()
+        bodyPart.setContent(body, "${emailFormat?:'text/html'}; charset=utf-8")
+        multipart.addBodyPart(bodyPart)
+
+        attachments?.each {
+            File attachment = AttachmentUtils.getAttachmentFile(it)
+            MimeBodyPart attachmentPart = new MimeBodyPart()
+            attachmentPart.attachFile(attachment, it.getMimetype(), null)
+            attachmentPart.setFileName(it.getFilename())
+            multipart.addBodyPart(attachmentPart)
+        }
+        email.setMultipart(multipart)
+        email.setMimeType("multipart/mixed")
+        SingleMailQueueItem smqi = new SingleMailQueueItem(email)
+        mailQueue.addItem(smqi)
     }
 
     /**
@@ -1060,6 +1105,7 @@ class GlobalObject {
             result = false
         }
         return result
+        //todo add logging
     }
 
     private Map<String, Object> getCurrentParamsForAction(Issue issue, int actionId) {
