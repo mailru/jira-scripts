@@ -1,7 +1,9 @@
 import com.atlassian.jira.bc.JiraServiceContextImpl
 import com.atlassian.jira.bc.filter.SearchRequestService
 import com.atlassian.jira.bc.issue.search.SearchService
+import com.atlassian.jira.issue.search.SearchRequest
 import com.atlassian.jira.component.ComponentAccessor
+import com.atlassian.jira.user.ApplicationUser
 import com.atlassian.jira.issue.fields.layout.column.ColumnLayoutManager
 
 def findAndReplaceInFilters(String find, String replaceTo) {
@@ -65,6 +67,8 @@ def getOwner(filter) {
     filter.getOwner()
 }
 
-def setNewOwnerFilter(long filterId, newOwnerUser) {
-    //todo //filter.setOwner
+def setNewOwnerFilter(long filterId, ApplicationUser adminUser, ApplicationUser newOwnerUser) {
+    SearchRequest filter = getFilter(filterId, adminUser)
+    filter.setOwner(newOwnerUser)
+    searchRequestService.updateFilterOwner(new JiraServiceContextImpl(adminUser), adminUser, filter)
 }
